@@ -1,0 +1,44 @@
+.formulario{
+    background-color: rgb(145 183 255);
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8em;
+    width: min-content;
+    padding: 0.5em;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+.formulario button{
+    background-color: rgb(8 87 203);
+    color: white;
+    cursor: pointer;
+}
+
+.formulario button:hover{
+    background-color: rgb(36, 112, 226);
+}
+
+.formulario input,
+.formulario textarea,
+.formulario button{
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(23, 23, 23);
+}
+
+.formulario input:focus-visible,
+.formulario textarea:focus-visible,
+.formulario select:focus-visible,
+.formulario button:focus-visible
+{
+    outline: none;
+    border-color: rgb(0, 145, 255);
+    box-shadow:rgb(0,145,255) 0px 0px 2px 0px;
+}
+
+.form-input{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.2rem;
+}
