@@ -1,6 +1,8 @@
 import {createContext,useContext,useState,useEffect} from "react"
 import TaskList from './components/tasks/TaskList'
-import TaskForm from './components/tasks/TaskForm'
+// import TaskForm_Refs from './components/tasks/TaskForm_Refs'
+// import TaskForm_State from './components/tasks/TaskForm_State'
+import TaskForm_Reducer from './components/tasks/TaskForm_Reducer'
 import type { task } from "./types/tasks";
 
 export interface Context {
@@ -38,9 +40,10 @@ export function TaskContextProvider() {
 
     return(
        <>
-        <TaskForm createTask={createTask}/>
+
+        <TaskForm_Reducer createTask={createTask}/>
         <TaskContext.Provider value={{tareas}}>
-            <TaskList removeTask={removeTask}/>
+            <TaskList removeTask={removeTask} />
         </TaskContext.Provider>
        </>
     )

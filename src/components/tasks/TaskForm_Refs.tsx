@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./taskForm.module.css";
 import Button from "../UI/Button";
 import type { task } from "../../types/tasks";
@@ -11,7 +11,7 @@ const priorityDefault = "Urgente";
 
 const TaskForm = (props:Props) => {
 
-    const [taskTitle,setTaskTitle] = useState("");
+    const taskTitleRef = useRef<HTMLInputElement>(null)
     const descriptionRef = useRef<HTMLTextAreaElement>(null)
     const taskOwnerRef = useRef<HTMLInputElement>(null)
     const priorityRef = useRef<HTMLSelectElement>(null)
@@ -19,10 +19,10 @@ const TaskForm = (props:Props) => {
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(taskTitle.trim() !== ""){
+        if(taskTitleRef.current!.value.trim() !== ""){
             const newTask:task = {
                 id : Math.random(),
-                title : taskTitle,
+                title : taskTitleRef.current!.value,
                 description : descriptionRef.current!.value,
                 owner : taskOwnerRef.current!.value,
                 priority : priorityRef.current!.value,
@@ -30,7 +30,7 @@ const TaskForm = (props:Props) => {
             }
             
             props.createTask(newTask);
-            setTaskTitle("");
+            taskTitleRef.current!.value = ""
             descriptionRef.current!.value = "";
             taskOwnerRef.current!.value = "";
             priorityRef.current!.value = priorityDefault;
@@ -38,16 +38,11 @@ const TaskForm = (props:Props) => {
         }
     }
 
-    const inputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(e.target.value);
-    }
-
-
     return( 
     <form onSubmit={handleSubmit} className={styles.formulario}>
         <div className = {styles["form-field"]} >
             <label htmlFor="task-title">Task:</label>
-            <input onChange={inputChange} id="task-title" value={taskTitle} autoFocus type="text" placeholder="name of task" />
+            <input ref={taskTitleRef} id="task-title" autoFocus type="text" placeholder="name of task" />
         </div>
         <div className = {styles["form-field"]} >
             <label htmlFor="task-owner">Task Owner:</label>

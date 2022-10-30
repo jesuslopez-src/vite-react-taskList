@@ -1,0 +1,43 @@
+.overlay{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.754);
+    z-index: 100;
+}
+
+.modal_card{
+    position: static;
+    background-color: azure;
+    width: fit-content;
+    padding: 1rem .8rem;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 2rem;
+    box-shadow:rgb(158,170,179) 0px 0px 3px 1px;
+}
+
+.modal_card__header{
+    /* display: flex;
+    justify-content: space-between; */
+    position: relative;
+}
+
+.modal_card__title{
+    color: rgb(215, 32, 32);
+    margin: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgb(223, 77, 77);
+}
+
+.modal_card__message{
+    margin: 0;
+    margin-bottom: .8rem;
+}
+
+.modal_card__buttons{
+    display: flex;
+    column-gap: 0.5rem;
+}

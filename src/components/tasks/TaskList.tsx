@@ -4,7 +4,7 @@ import { useContext } from "react";
 import styles from "./taskList.module.css"
 
 interface Props {
-    removeTask: (id: number) => void
+    removeTask: (id: number) => void,
 }
 
 const TaskList = (props: Props) => {

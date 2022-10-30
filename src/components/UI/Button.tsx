@@ -11,7 +11,7 @@ interface Props{
 const Button = (props:Props) =>{
 
     return(
-        <button className={`${styles.button} ${props.classes? styles[props.classes]:''}`.trim()} onClick={props.onClick} type={props.type}>
+        <button className={`${styles.button} ${props.classes? props.classes:''}`.trim()} onClick={props.onClick} type={props.type}>
             {props.children}
         </button>
     )

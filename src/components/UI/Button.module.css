@@ -1,5 +1,4 @@
 .button{
-    border-width: 1px;
     border-style: solid;
     border-color: rgb(23, 23, 23);
     cursor: pointer;
@@ -8,12 +7,12 @@
 .delete-task{
     background-color: #d31111;
     color: #f5f6f0;
-    border-width: 1;
     border-color: #d31111;
 }
 
 .delete-task:hover{
     background-color: #ff3636;
+    border-color: #ff3636;
 }
 
 .delete-task:focus-visible
@@ -26,14 +25,17 @@
 
 .add-task{
     background-color: rgb(8 87 203);
+    border-color: rgb(8 87 203);
     color: white;
 }
 
 .add-task:hover{
     background-color: rgb(36, 112, 226);
+    border-color: rgb(36, 112, 226);
 }
 .add-task:active{
     background-color: rgb(145 183 255);
+    border-color: rgb(199 222 255);
 }
 
 .add-task:focus-visible
@@ -41,4 +43,14 @@
     outline: none;
     border-color: rgb(0, 145, 255);
     box-shadow:rgb(0,145,255) 0px 0px 2px 0px;
+}
+
+.cancel-modal{
+    background-color: #2f2f2f;
+    color: #f5f6f0;
+    border-color: #2f2f2f;
+}
+
+.cancel-modal:hover{
+    background-color: #46403e;
 }
