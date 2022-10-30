@@ -12,6 +12,7 @@ const TaskList = (props: Props) => {
     const contexto = useContext<Context>(TaskContext)
 
     if (contexto.tareas.length === 0) {
+        document.body!.classList.remove("hide_overflow")
         return <h1>No hay tareas</h1>
     }
 

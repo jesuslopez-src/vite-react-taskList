@@ -8,8 +8,8 @@ interface Props_Modal{
     title:string,
     message:string,
     removeTask:(id: number) => void,
-    task:task,
-    displayModal:()=>void
+    taskID:number,
+    toggleModal:()=>void
 }
 
 interface Props_Overlay{
@@ -26,8 +26,8 @@ export const Overlay = (props:Props_Overlay)=>{
 export const Modal = (props:Props_Modal) =>{
 
     const deleteTask = ()=>{
-        props.displayModal()
-        props.removeTask(props.task.id)
+        props.toggleModal()
+        props.removeTask(props.taskID)
     }
 
     return(
@@ -36,7 +36,7 @@ export const Modal = (props:Props_Modal) =>{
             <p className={styles.modal_card__message}>{props.message}</p>
             <div className={styles.modal_card__buttons}>
                 <Button onClick={deleteTask} type="button" classes={btn_styles["delete-task"]}>Delete Task</Button>
-                <Button onClick={props.displayModal} type="button" classes={btn_styles["cancel-modal"]}>Cancel</Button>  
+                <Button onClick={props.toggleModal} type="button" classes={btn_styles["cancel-modal"]}>Cancel</Button>  
             </div>
         </div>
     )
