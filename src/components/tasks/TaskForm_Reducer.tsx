@@ -75,6 +75,8 @@ const TasksReducer: React.Reducer<TaskState, TaskAction> = (state, action) => {
 
 const TaskForm = (props: Props) => {
 
+    console.log("TaskForm Running")
+
     const [tasks, tasksDispatch] = useReducer(TasksReducer, { title: "", owner: "", description: "", priority: priorityDefault, deadline: "" })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -131,8 +133,8 @@ const TaskForm = (props: Props) => {
             </div>
             <div className={styles["form-field"]} >
                 <label htmlFor="task-priority">Task Priority:</label>
-                <select onChange={taskPriorityChange} value={tasks.priority} id="task-priority">
-                    <option value={tasks.priority}>{tasks.priority}</option>
+                <select onChange={taskPriorityChange} id="task-priority" value={tasks.priority}>
+                    <option value={priorityDefault}>{priorityDefault}</option>
                     <option value="Aplazable">Aplazable</option>
                 </select>
             </div>
@@ -145,4 +147,4 @@ const TaskForm = (props: Props) => {
     )
 }
 
-export default TaskForm;
+export default React.memo(TaskForm);

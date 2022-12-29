@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./taskForm.module.css";
 import Button from "../UI/Button";
+import btn_styles from "../UI/Button.module.css";
 import type { task } from "../../types/tasks";
 
 interface Props{
@@ -75,8 +76,8 @@ const TaskForm = (props:Props) => {
         </div>
         <div className = {styles["form-field"]} >
             <label htmlFor="task-priority">Task Priority:</label>
-            <select onChange={taskPriorityChange} id="task-priority" value={taskPriority} defaultValue={taskPriority}>
-                <option value={taskPriority}>{taskPriority}</option>
+            <select onChange={taskPriorityChange} id="task-priority" value={taskPriority}>
+                <option value={priorityDefault}>{priorityDefault}</option>
                 <option value="Aplazable">Aplazable</option>
             </select>
         </div>
@@ -84,7 +85,7 @@ const TaskForm = (props:Props) => {
             <label htmlFor="task-deadline">Task Deadline:</label>
             <input onChange={taskDateChange} value={taskDate} type="date" id="task-deadline" />
         </div>
-        <Button classes="add-task" type="submit">Guardar</Button>
+        <Button classes={btn_styles["add-task"]} type="submit">Guardar</Button>
     </form>
     )
 }

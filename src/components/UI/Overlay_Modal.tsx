@@ -7,9 +7,9 @@ import btn_styles from "./Button.module.css";
 interface Props_Modal{
     title:string,
     message:string,
-    removeTask:(id: number) => void,
-    taskID:number,
-    toggleModal:()=>void
+    action:()=>void,
+    cancelModalAction:()=>void,
+    actionBtnText:string
 }
 
 interface Props_Overlay{
@@ -25,9 +25,14 @@ export const Overlay = (props:Props_Overlay)=>{
 }
 export const Modal = (props:Props_Modal) =>{
 
-    const deleteTask = ()=>{
-        props.toggleModal()
-        props.removeTask(props.taskID)
+    const runAction = ()=>{
+        document.body!.classList.remove("hide_overflow")
+        props.action();
+    }
+
+    const cancelAction = () =>{
+        document.body!.classList.remove("hide_overflow")
+        props.cancelModalAction();
     }
 
     return(
@@ -35,8 +40,8 @@ export const Modal = (props:Props_Modal) =>{
             <h2 className={styles.modal_card__title}>{props.title}</h2>
             <p className={styles.modal_card__message}>{props.message}</p>
             <div className={styles.modal_card__buttons}>
-                <Button onClick={deleteTask} type="button" classes={btn_styles["delete-task"]}>Delete Task</Button>
-                <Button onClick={props.toggleModal} type="button" classes={btn_styles["cancel-modal"]}>Cancel</Button>  
+                <Button onClick={runAction} type="button" classes={btn_styles["delete-task"]}>{props.actionBtnText}</Button>
+                <Button onClick={cancelAction} type="button" classes={btn_styles["cancel-modal"]}>Cancel</Button>  
             </div>
         </div>
     )

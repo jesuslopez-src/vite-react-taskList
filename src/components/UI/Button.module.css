@@ -4,6 +4,11 @@
     cursor: pointer;
 }
 
+.button:disabled{
+    background-color: #46403e;
+    border-color: #46403e;
+}
+
 .delete-task{
     background-color: #d31111;
     color: #f5f6f0;

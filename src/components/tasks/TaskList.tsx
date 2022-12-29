@@ -1,6 +1,6 @@
 import TaskRow from "./TaskRow";
 import { TaskContext, Context } from "../../TaskContext";
-import { useContext } from "react";
+import { useState,useContext } from "react";
 import styles from "./taskList.module.css"
 
 interface Props {
@@ -9,10 +9,12 @@ interface Props {
 
 const TaskList = (props: Props) => {
 
+    console.log("Running TaskList")
+
     const contexto = useContext<Context>(TaskContext)
+    const [disableBtns,setDisableBtns] = useState(false);
 
     if (contexto.tareas.length === 0) {
-        document.body!.classList.remove("hide_overflow")
         return <h1>No hay tareas</h1>
     }
 
@@ -31,7 +33,7 @@ const TaskList = (props: Props) => {
             <tbody>
                 {
                     contexto.tareas.map(task =>
-                        <TaskRow task={task} key={task.id} removeTask={props.removeTask} />
+                        <TaskRow task={task} key={task.id} removeTask={props.removeTask} disableBtns={disableBtns} setDisableBtns={setDisableBtns}/>
                     )
                 }
             </tbody>

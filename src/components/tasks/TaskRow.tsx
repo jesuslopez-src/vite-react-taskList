@@ -9,15 +9,34 @@ import { Overlay,Modal } from "../UI/Overlay_Modal";
 
 interface Props {
     task: task,
+    disableBtns:boolean,
+    setDisableBtns:React.Dispatch<React.SetStateAction<boolean>>,
     removeTask: (id: number) => void
 }
 
-const TaskRow = ({ task, removeTask }: Props) => {
+const TaskRow = ({ disableBtns,setDisableBtns,task, removeTask }: Props) => {
+
+    console.log("Running TaskRow")
 
     const [showOverlay, setShowOverlay] = useState(false);
 
-    const toggleModal = () => {
-        setShowOverlay((prevstate) => !prevstate)
+    const HandleSomeStates = (Overlay:boolean,Btns:boolean)=>{
+        setDisableBtns(Btns)
+        setShowOverlay(Overlay)
+    }
+
+    const showModal = () => {
+        document.body!.classList.add("hide_overflow")
+        HandleSomeStates(true,true)
+    }
+
+    const removeTaskAction = () =>{
+        HandleSomeStates(false,false)
+        removeTask(task.id)
+    }
+
+    const cancelModalAction = () => {
+        HandleSomeStates(false,false)
     }
 
 
@@ -30,15 +49,12 @@ const TaskRow = ({ task, removeTask }: Props) => {
                 <td>{task.priority}</td>
                 <td>{task.deadline}</td>
                 <td>
-                    {/* <Button classes="delete-task" type='button' onClick={()=>removeTask(task.id)}>Eliminar Tarea</Button> */}
-                    <Button classes={btn_styles["delete-task"]} type='button' onClick={toggleModal}>Eliminar Tarea</Button>
+                    <Button disable={disableBtns}  classes={btn_styles["delete-task"]} type='button' onClick={showModal}>Eliminar Tarea</Button>
                 </td>
             </tr>
-            {showOverlay ? document.body!.classList.add("hide_overflow")
-             :document.body!.classList.remove("hide_overflow")}
             {showOverlay ? ReactDOM.createPortal(
             <Overlay>
-                <Modal toggleModal={toggleModal} removeTask={removeTask} taskID={task.id} title="Delete Task" message="Are you sure you want to delete this task?"/>
+                <Modal actionBtnText={"Delete Task"} action={removeTaskAction} cancelModalAction={cancelModalAction} title="Delete Task" message="Are you sure you want to delete this task?"/>
             </Overlay>, document.getElementById("root")!) : null}
         </>
     )

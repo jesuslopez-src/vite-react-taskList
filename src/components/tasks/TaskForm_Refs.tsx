@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import styles from "./taskForm.module.css";
 import Button from "../UI/Button";
+import btn_styles from "../UI/Button.module.css";
 import type { task } from "../../types/tasks";
 
 interface Props{
@@ -63,7 +64,7 @@ const TaskForm = (props:Props) => {
             <label htmlFor="task-deadline">Task Deadline:</label>
             <input ref={dateRef} type="date" id="task-deadline" />
         </div>
-        <Button classes="add-task" type="submit">Guardar</Button>
+        <Button classes={btn_styles["add-task"]} type="submit">Guardar</Button>
     </form>
     )
 }
