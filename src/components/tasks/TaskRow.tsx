@@ -11,7 +11,7 @@ interface Props {
     task: task,
     disableBtns:boolean,
     setDisableBtns:React.Dispatch<React.SetStateAction<boolean>>,
-    removeTask: (id: number) => void
+    removeTask: (id: string) => void
 }
 
 const TaskRow = ({ disableBtns,setDisableBtns,task, removeTask }: Props) => {

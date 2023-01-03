@@ -1,5 +1,5 @@
 type task = {
-    id: number,
+    id: string,
     title: string,
     description: string,
     owner: string,
@@ -7,4 +7,8 @@ type task = {
     deadline: string
 }
 
-export type { task };
+type tasksJson = {
+    [key:string]:task
+}
+
+export type { task,tasksJson };

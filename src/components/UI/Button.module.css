@@ -39,8 +39,8 @@
     border-color: rgb(36, 112, 226);
 }
 .add-task:active{
-    background-color: rgb(145 183 255);
-    border-color: rgb(199 222 255);
+    background-color: rgb(239, 161, 6);
+    border-color: rgb(236, 201, 4);
 }
 
 .add-task:focus-visible

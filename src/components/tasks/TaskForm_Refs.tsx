@@ -22,7 +22,7 @@ const TaskForm = (props:Props) => {
         e.preventDefault()
         if(taskTitleRef.current!.value.trim() !== ""){
             const newTask:task = {
-                id : Math.random(),
+                id : Math.random().toString(),
                 title : taskTitleRef.current!.value,
                 description : descriptionRef.current!.value,
                 owner : taskOwnerRef.current!.value,
