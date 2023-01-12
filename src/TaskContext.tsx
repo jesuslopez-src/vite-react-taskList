@@ -50,30 +50,39 @@ export function TaskContextProvider() {
         } else if (newTask && !deleteTask) {
             //crear nueva tarea en firebase
             const response = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json",false,newTask) as Promise<Response>;
-            // verficar si la respuesta es exitosa
+            // si la respuesta es exitosa entonces
             response.then(resp=>{
                 if(resp.ok){
                     getRemoteTasks()
                 }
             })
-            //si la respuesta es exitosa entonces
-            // getRemoteTasks();
         } else if (!newTask && deleteTask) {
-            //eliminar recurso en firebase
-            //revisar esto luego, ahorita no funciona
-            // const response = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks/"+id,true) as Promise<Response>;
+            //deep copy del estado de las tareas
+            let copied_tasks:task[] = JSON.parse(JSON.stringify(tasks))
+            //eliminar la tarea que corresponda con el actual estado id
+            copied_tasks = copied_tasks.filter(task=>task.id !== id)
+            // console.log(copied_tasks);
+            // crear un objeto con las tareas a partir del array copied_tasks
+            // esto se hace por necesidad de firebase
+            const obj:tasksJson = {};
+            copied_tasks.forEach(task=>{
+                obj[task.id] = task
+            })
+            // console.log(obj);
 
-            // response.then(resp=>{
-            //     if(resp.ok){
-            //         getRemoteTasks()
-            //     }
-            // })
+            //actualizar la base de datos en firebase
+            const response = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json",true,obj) as Promise<Response>;
+
+            //actualizar el estado con la tarea ya eliminada
+            response.then(resp=>{
+                if(resp.ok){
+                    setTasks(copied_tasks)
+                }
+            })
         }
     }, [usingLocalStorage, newTask, id]);
 
-    // const createTask = (newtask:task) =>{
-    //     setTaskssetTasks((prevtareas)=>[...prevtareas,newtask])
-    // }
+    
     const addTasksToStorage = (newtask: task) => {
         const tasks_from_storage: task[] = JSON.parse(localStorage.getItem('tareas')!)
         const updated_tasks = [...tasks_from_storage, newtask]
@@ -86,7 +95,7 @@ export function TaskContextProvider() {
     }
     
     const getRemoteTasks = () => {
-        const datos = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json") as Promise<cosa>;
+        const datos = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json") as Promise<tasksJson>;
         console.log(datos)
         datos.then(tareas => {
             const mi_array:task[] = []
@@ -94,8 +103,6 @@ export function TaskContextProvider() {
             for (const key in tareas) {
                 tareas[key].id=key
                 mi_array.push(tareas[key]);
-                mi_array
-                
             }
             setTasks(mi_array.slice())
             // console.log(mi_array)
