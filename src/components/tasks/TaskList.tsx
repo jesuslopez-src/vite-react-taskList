@@ -1,7 +1,8 @@
 import TaskRow from "./TaskRow";
 import { TaskContext, Context } from "../../TaskContext";
-import { useState,useContext } from "react";
+import React, { useContext } from "react";
 import styles from "./taskList.module.css"
+import type { task } from "../../types/tasks";
 
 interface Props {
     removeTask: (id: string) => void,
@@ -12,7 +13,8 @@ const TaskList = (props: Props) => {
     console.log("Running TaskList")
 
     const contexto = useContext<Context>(TaskContext)
-    const [disableBtns,setDisableBtns] = useState(false);
+    // let copied_tasks:task[] = JSON.parse(JSON.stringify(contexto.tareas))
+    // console.log(copied_tasks);
 
     if (contexto.tareas.length === 0) {
         return <h1>No hay tareas</h1>
@@ -33,12 +35,11 @@ const TaskList = (props: Props) => {
             <tbody>
                 {
                     contexto.tareas.map(task =>
-                        <TaskRow task={task} key={task.id} removeTask={props.removeTask} disableBtns={disableBtns} setDisableBtns={setDisableBtns}/>
+                        <TaskRow task={task} key={task.id} removeTask={props.removeTask} />
                     )
                 }
             </tbody>
-
         </table>);
 }
 
-export default TaskList;
+export default React.memo(TaskList);

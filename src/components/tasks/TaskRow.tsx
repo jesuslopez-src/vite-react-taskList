@@ -9,34 +9,27 @@ import { Overlay,Modal } from "../UI/Overlay_Modal";
 
 interface Props {
     task: task,
-    disableBtns:boolean,
-    setDisableBtns:React.Dispatch<React.SetStateAction<boolean>>,
-    removeTask: (id: string) => void
+    removeTask: (id: string) => void,
 }
 
-const TaskRow = ({ disableBtns,setDisableBtns,task, removeTask }: Props) => {
+const TaskRow = ({ task, removeTask }: Props) => {
 
     console.log("Running TaskRow")
 
     const [showOverlay, setShowOverlay] = useState(false);
 
-    const HandleSomeStates = (Overlay:boolean,Btns:boolean)=>{
-        setDisableBtns(Btns)
-        setShowOverlay(Overlay)
-    }
-
     const showModal = () => {
         document.body!.classList.add("hide_overflow")
-        HandleSomeStates(true,true)
+        setShowOverlay(true)
     }
 
     const removeTaskAction = () =>{
-        HandleSomeStates(false,false)
+        setShowOverlay(false)
         removeTask(task.id)
     }
 
     const cancelModalAction = () => {
-        HandleSomeStates(false,false)
+        setShowOverlay(false)   
     }
 
 
@@ -49,7 +42,7 @@ const TaskRow = ({ disableBtns,setDisableBtns,task, removeTask }: Props) => {
                 <td>{task.priority}</td>
                 <td>{task.deadline}</td>
                 <td>
-                    <Button disable={disableBtns}  classes={btn_styles["delete-task"]} type='button' onClick={showModal}>Eliminar Tarea</Button>
+                    <Button classes={btn_styles["delete-task"]} type='button' onClick={showModal}>Eliminar Tarea</Button>
                 </td>
             </tr>
             {showOverlay ? ReactDOM.createPortal(

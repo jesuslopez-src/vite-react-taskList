@@ -1,5 +1,5 @@
 import styles from './App.module.css'
-import {TaskContextProvider} from "./TaskContext"
+import { TaskContextProvider } from "./TaskContext"
 
 function App() {
 
