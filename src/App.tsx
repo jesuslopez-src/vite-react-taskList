@@ -1,5 +1,6 @@
 import styles from './App.module.css'
-import { TaskContextProvider } from "./TaskContext"
+// import { TaskContextProvider } from "./TaskContext"
+import { TaskWithRedux } from "./TaskWithRedux"
 
 function App() {
 
@@ -7,7 +8,8 @@ function App() {
 
   return (
     <div className={styles['app-wraper']}>
-      <TaskContextProvider/>
+      {/* <TaskContextProvider/> */}
+      <TaskWithRedux/>
     </div>
   )
 }
