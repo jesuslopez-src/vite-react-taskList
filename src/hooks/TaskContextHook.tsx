@@ -18,9 +18,7 @@ const useTaskContextHook = (contexto:Context) =>{
         if (usingLocalStorage) {
             if (!newTask && localStorage.getItem('tareas') && !deleteTask) {
                 const getTareas: task[] = JSON.parse(localStorage.getItem('tareas')!)
-                if (getTareas.length > 0) {
-                    setTasks(getTareas);
-                }
+                setTasks(getTareas);
             } else if (newTask && localStorage.getItem('tareas') && !deleteTask) {
                 addTasksToStorage(newTask);
                 setTasks(getTasks());
@@ -30,7 +28,8 @@ const useTaskContextHook = (contexto:Context) =>{
                 localStorage.setItem('tareas', JSON.stringify(tasks))
                 setTasks(getTasks());
             } else {
-                localStorage.setItem('tareas', JSON.stringify(tasks))
+                localStorage.setItem('tareas', JSON.stringify([]))
+                setTasks(getTasks());
             }
         } else if (!newTask && !deleteTask) {
             //llamar a firebase cargar datos, cargarlos a tasks
@@ -88,7 +87,7 @@ const getTasks = () => {
 
 const getRemoteTasks = (setTasks:React.Dispatch<React.SetStateAction<task[]>>) => {
     const datos = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json") as Promise<tasksJson>;
-    console.log(datos)
+    // console.log(datos)
     datos.then(tareas => {
         const mi_array:task[] = []
         // console.log(tareas)
@@ -99,6 +98,25 @@ const getRemoteTasks = (setTasks:React.Dispatch<React.SetStateAction<task[]>>) =
         setTasks(mi_array.slice())
         // console.log(mi_array)
     })
+}
+
+export const getRemoteTasksWithRedux = async() => {
+    const datos = http("https://react-test-19e70-default-rtdb.firebaseio.com/tasks.json") as Promise<tasksJson>;
+    // console.log(datos)
+    // const mi_array:task[] = []
+    const tareas_array = datos.then(tareas => {
+        // console.log(tareas)
+        const mi_array:task[] = []
+        for (const key in tareas) {
+            tareas[key].id=key
+            mi_array.push(tareas[key]);
+        }
+        
+        // console.log(mi_array)
+        return mi_array;
+    })
+
+    return await tareas_array;
 }
 
 export default useTaskContextHook;
