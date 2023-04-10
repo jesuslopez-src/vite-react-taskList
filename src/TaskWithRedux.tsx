@@ -10,18 +10,6 @@ import type { task, tasksJson } from "./types/tasks";
 import { getRemoteTasksWithRedux } from "./hooks/TaskContextHook"
 import http from "./utilities/http";
 
-// usando firebase/firestore
-import { db } from "./firebase/config"
-import { collection, getDocs } from "firebase/firestore";
-
-const querySnapshot = await getDocs(collection(db, "tasks"));
-querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} =>`, doc.data());
-})
-
-
-
-
 export function TaskWithRedux() {
 
     console.log("Running TaskWithRedux with Redux")
