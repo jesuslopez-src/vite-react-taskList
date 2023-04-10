@@ -23,10 +23,8 @@ const http = async (url:RequestInfo,removeTask:boolean=false,body:tasksJson|task
         return response;
     
     }else if(removeTask){
-        //esto por los momentos no funciona
-        // lanza error CORS
         response = await fetch(url,{
-            method:"PUT",
+            method:"PUT", //es PUT por cuestiones de firebase
             headers:{
                 "Content-type":"application/json"
             },
