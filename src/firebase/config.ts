@@ -29,4 +29,5 @@ const appCheck = initializeAppCheck(app, {
   isTokenAutoRefreshEnabled: true
 });
 
-export const db = getFirestore(appCheck.app);
+
+export const db = getFirestore(app);
